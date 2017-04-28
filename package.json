@@ -10,6 +10,8 @@
   "author": "venkata pothineni",
   "license": "MIT",
   "dependencies": {
-    "mongodb": "^2.2.26"
+    "express": "^4.15.2",
+    "mongodb": "^2.2.26",
+    "morgan": "^1.8.1"
   }
 }

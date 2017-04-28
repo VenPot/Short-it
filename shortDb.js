@@ -1,7 +1,7 @@
 var exports = module.exports = {}
 var mongo = require('mongodb').MongoClient
-
-var URI = process.env.MONGODB_URI
+var uriFallback = 'mongodb://' + process.env.IP + ':27017/shortURl'
+var URI = process.env.MONGODB_URI || uriFallback
 
 exports.saveUrl = function(baseUrl, newUrl) {
 

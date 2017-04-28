@@ -12,7 +12,7 @@ $(document).ready(function() {
                 console.log("finaluserUrl is ", finalUserUrl)
                     // console.log("client data is ", clientData)
 
-                $.post('/send', finalUserUrl, function(data, status) {
+                $.post('/sends', finalUserUrl, function(data, status) {
                     console.log("status is ", status)
                     $('#personal').show()
                     $('#convertedUrl').html(data)
