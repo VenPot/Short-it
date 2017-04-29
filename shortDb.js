@@ -30,10 +30,13 @@ exports.getUrl = function(mash, callback) {
       _id: 0,
       newone: 0
     }).toArray(function(err, docs) {
-      if (err) console.log("error in ():getUrl", err)
-
+      if (err) {
+        console.log("error in ():getUrl", err)
+        callback(err)
+      }
+      else
+        callback(null, docs)
       db.close()
-      callback(null, docs)
     })
   })
 }
