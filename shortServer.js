@@ -33,13 +33,44 @@ app.post('/sends', function(req, res) {
     req.on('end', function() {
         parsedBody = qs.parse(body)
         var baseUrl = parsedBody.clientUrl
-        var convertedUrl = Math.random().toString(36).slice(-4)
-        var x = "/" + convertedUrl
-        var basePlusconvertedUrl = "https://latesthollerclone-curious2code.c9users.io" + x
+        var x = "/" + convertedUrl()
+        finish()
 
-        //var basePlusconvertedUrl = "https://c9surl.herokuapp.com" + x
-        shortDb.saveUrl(baseUrl, x)
-        res.end(basePlusconvertedUrl)
+        function finish() {
+
+            if (check(x)) {
+                var basePlusconvertedUrl = "https://latesthollerclone-curious2code.c9users.io" + x
+                    //var basePlusconvertedUrl = "https://c9surl.herokuapp.com" + x
+                shortDb.saveUrl(baseUrl, x)
+                res.end(basePlusconvertedUrl)
+            }
+        }
+
+        function convertedUrl() {
+            return Math.random().toString(36).slice(-4)
+        }
+
+        function regenerate() {
+            x = "/" + convertedUrl()
+            finish()
+        }
+
+        function check(x) {
+            var y = []
+            shortDb.getUrl(x, function(err, data) {
+                if (err) throw err
+                console.log("data is ", data)
+                y = data
+            })
+            if (y[0]) {
+                regenerate()
+                return false
+            }
+            else return true
+
+        }
+
+
     })
 
 })
@@ -48,10 +79,17 @@ app.get(/...../, function(req, res) {
     console.log("request Url is ", req.url, req.method)
     var mash = req.url.toString()
     shortDb.getUrl(mash, function(err, data) {
-        if (err) throw err
         console.log("data is ", data)
-        var x = data[0]['base'].replace('https://', 'https://www.')
-        res.redirect(302, x);
+        if (err) {
+            console.log(err)
+            res.end()
+        }
+        else {
+
+            var x = data[0]['base'].replace('https://', 'https://www.')
+            res.redirect(302, x);
+        }
+
     })
 
 })
