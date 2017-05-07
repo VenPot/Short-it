@@ -4,13 +4,16 @@
   "description": "shorturl",
   "main": "shortServer.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test.js",
     "start": "node shortServer.js"
   },
   "author": "venkata pothineni",
   "license": "MIT",
   "dependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
     "express": "^4.15.2",
+    "mocha": "^3.3.0",
     "mongodb": "^2.2.26",
     "morgan": "^1.8.1"
   }
