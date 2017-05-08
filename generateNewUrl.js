@@ -1,15 +1,15 @@
 module.exports = exports = {}
 var shortDb = require('./shortDb.js')
 var basePlusconvertedUrl
-exports.getNewUrl = function(baseUrl, callback) {
+exports.getNewUrl = function(baseUrl, host, callback) {
     var x = "/" + exports.convertedUrl()
     generateNewUrl(x)
 
     function generateNewUrl(x) {
 
         if (exports.check(x)) {
-            basePlusconvertedUrl = "https://latesthollerclone-curious2code.c9users.io" + x
-                //var basePlusconvertedUrl = "https://c9surl.herokuapp.com" + x
+            basePlusconvertedUrl = "https://" + host.toString() + x
+
             if (typeof(baseUrl) == 'string') {
                 shortDb.saveUrl(baseUrl, x)
                 callback(null, basePlusconvertedUrl)
