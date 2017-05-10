@@ -4,7 +4,7 @@
   "description": "shorturl",
   "main": "shortServer.js",
   "scripts": {
-    "test": "mocha test.js",
+    "test": "istanbul cover _mocha test/",
     "start": "node shortServer.js"
   },
   "author": "venkata pothineni",
@@ -16,5 +16,8 @@
     "mocha": "^3.3.0",
     "mongodb": "^2.2.26",
     "morgan": "^1.8.1"
+  },
+  "devDependencies": {
+    "istanbul": "^0.4.5"
   }
 }
