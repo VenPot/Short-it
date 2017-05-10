@@ -4,6 +4,9 @@ var qs = require('querystring')
 var logger = require('morgan')
 var shortDb = require('./shortDb.js')
 var gnu = require('./generateNewUrl.js')
+    //var mongoose=require('mongoose')
+    //mongoose.connect('mongodb://localhost/shortgoose');
+
 
 
 var parsedBody = ''
@@ -57,7 +60,7 @@ app.get(/...../, function(req, res) {
         }
         else {
 
-            var x = data[0]['base'].replace('https://', 'https://www.')
+            var x = data['base'].replace('https://', 'https://www.')
             res.redirect(302, x);
         }
 

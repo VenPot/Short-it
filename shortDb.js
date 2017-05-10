@@ -1,42 +1,33 @@
 var exports = module.exports = {}
-var mongo = require('mongodb').MongoClient
+var mongoose = require('mongoose');
 var uriFallback = 'mongodb://' + process.env.IP + ':27017/shortURl'
 var URI = process.env.MONGODB_URI || uriFallback
+mongoose.connect(URI)
+
+var urlSchema = mongoose.Schema({
+  base: String,
+  newone: String
+})
+
+var urlmap = mongoose.model('urlmap', urlSchema)
 
 exports.saveUrl = function(baseUrl, newUrl) {
-
-  mongo.connect(URI, function(err, db) {
-    if (err) console.log(err)
-    var shortit = db.collection('shortit')
-    shortit.insert({
-      base: baseUrl,
-      newone: newUrl
-    }, function(err, data) {
-      if (err) console.log("error in ():saveURL", err)
-    })
-    db.close()
+  var x = new urlmap({})
+  x.base = baseUrl
+  x.newone = newUrl
+  x.save(function(err, x) {
+    if (err) console.error(err)
+    else
+      console.log("data inserted into database")
   })
-
 }
 
-
 exports.getUrl = function(mash, callback) {
-  mongo.connect(URI, function(err, db) {
-    if (err) console.log(err)
-    var shortit = db.collection('shortit')
-    shortit.find({
-      newone: mash
-    }, {
-      _id: 0,
-      newone: 0
-    }).toArray(function(err, docs) {
-      if (err) {
-        console.log("error in ():getUrl", err)
-        callback(err)
-      }
-      else
-        callback(null, docs)
-      db.close()
-    })
+  urlmap.findOne({
+    newone: mash
+  }, 'base', function(err, data) {
+    if (err) callback(err)
+    else
+      callback(null, data)
   })
 }

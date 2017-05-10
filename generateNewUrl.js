@@ -29,16 +29,18 @@ exports.regenerate = function(x) {
 }
 
 exports.check = function(x) {
-    var y = []
+    var y
     shortDb.getUrl(x, function(err, data) {
         if (err) throw err
-            //console.log("data is ", data)
+        console.log("data is " + data)
         y = data
+
+
     })
-    if (y[0]) {
+
+    if (y) {
         exports.regenerate(x)
         return false
     }
     else return true
-
 }
